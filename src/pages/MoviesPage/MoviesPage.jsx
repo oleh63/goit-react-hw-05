@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { fetchMoviesByQuery } from "../../services/api";
@@ -8,28 +9,45 @@ import styles from "./MoviesPage.module.css";
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
+
+  useEffect(() => {
+    if (query) {
+      const fetchMovies = async () => {
+        try {
+          const data = await fetchMoviesByQuery(query);
+          if (data.length === 0) {
+            setError("No results found.");
+          } else {
+            setError(null);
+          }
+          setMovies(data);
+        } catch (error) {
+          setError("Failed to fetch movies.");
+          setMovies([]);
+        }
+      };
+
+      fetchMovies();
+    }
+  }, [query]);
 
   const formik = useFormik({
     initialValues: {
-      query: "",
+      query: query,
     },
     validationSchema: Yup.object({
       query: Yup.string()
         .min(2, "Search term must be at least 2 characters")
         .required("Search term is required"),
     }),
-    onSubmit: async (values) => {
-      try {
-        const data = await fetchMoviesByQuery(values.query.trim());
-        if (data.length === 0) {
-          setError("No results found.");
-        } else {
-          setError(null);
-        }
-        setMovies(data);
-      } catch (error) {
-        setError("Failed to fetch movies.");
-        setMovies([]);
+    onSubmit: (values) => {
+      const newQuery = values.query.trim();
+      if (newQuery) {
+        setSearchParams({ query: newQuery });
+      } else {
+        setSearchParams({});
       }
     },
   });

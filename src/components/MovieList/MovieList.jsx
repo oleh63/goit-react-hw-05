@@ -8,7 +8,7 @@ const MovieList = ({ movies }) => {
       {movies.map((movie) => (
         <li key={movie.id} className={styles.item}>
           <Link
-            to={`/${movie.id}`}
+            to={`/movies/${movie.id}`}
             state={{ from: location }}
             className={styles.link}
           >
