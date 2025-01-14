@@ -39,3 +39,11 @@ export const fetchMovieReviews = async (movieId) => {
   const { data } = await axios.get(`/movie/${movieId}/reviews`, options);
   return data.results;
 };
+
+export const fetchMoviesByQuery = async (query) => {
+  const { data } = await axios.get(
+    `/search/movie?query=${query}&language=en-US`,
+    options
+  );
+  return data.results;
+};
