@@ -1,0 +1,29 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.item {
+  max-width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgb(206, 205, 216);
+}
+
+.item img {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.item:hover {
+  box-shadow: 19px 13px 24px 4px rgba(246, 89, 89, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.item a {
+  font-size: 20px;
+  color: rgb(47, 51, 51);
+}

@@ -4,6 +4,7 @@ nav {
   align-items: center;
   gap: 32px;
   max-width: 100%;
+  margin-bottom: 32px;
 }
 
 .link {
