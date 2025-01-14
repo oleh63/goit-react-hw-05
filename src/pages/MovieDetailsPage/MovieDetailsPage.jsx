@@ -14,7 +14,8 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
-  const defaultImg = "https://via.placeholder.com/300?text=No+Image";
+
+  const defaultImg = "https://picsum.photos/300/450?text=No+Image";
 
   useEffect(() => {
     const fetchData = async () => {

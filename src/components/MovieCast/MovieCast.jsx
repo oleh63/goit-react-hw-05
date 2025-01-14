@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { fetchMovieCast } from "../../services/api";
 import styles from "./MovieCast.module.css";
 
+const defaultImg = "https://picsum.photos/200/300?text=No+Image";
+
 const MovieCast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
@@ -28,7 +30,7 @@ const MovieCast = () => {
               src={
                 actor.profile_path
                   ? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
-                  : "https://via.placeholder.com/200?text=No+Image"
+                  : defaultImg
               }
               alt={actor.name}
               className={styles.image}
